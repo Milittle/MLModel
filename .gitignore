@@ -1,4 +1,5 @@
 .idea
+__pycache__
 datasets_test/cifar/__pycache__
 datasets_test/cifar/cifar10_data
 datasets_test/cifar/cifar10_data/cifar-10-batches-bin
