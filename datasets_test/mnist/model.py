@@ -5,7 +5,6 @@
 # @Site    : www.weaf.top
 # @File    : model.py
 # @Software: PyCharm
-#coding=utf-8
 
 
 import tensorflow as tf
@@ -25,11 +24,13 @@ tf.app.flags.DEFINE_string('model_path', 'model\\','define model path')
 tf.app.flags.DEFINE_string('model_name', 'model.ckpt', 'define model name')
 tf.app.flags.DEFINE_string('meta_graph_name', 'model.meta', 'define model name')
 tf.app.flags.DEFINE_bool('use_model', False, 'define use_model sign')
-tf.app.flags.DEFINE_bool('is_train', False, 'define train sign')
+tf.app.flags.DEFINE_bool('is_train', True, 'define train sign')
 tf.app.flags.DEFINE_bool('is_test', False, 'define train sign')
 
 
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+# mnist_train = dataset.train("MNIST_data/")
+# mnist_test = dataset.train("MNIST_data/")
 
 # define W & b
 def weight_variable(para, name):
@@ -48,6 +49,8 @@ def conv2d(x,W):
 def max_pool_2(x, name):
     return tf.nn.max_pool(x,ksize=[1,2,2,1],strides=[1,2,2,1],padding='SAME', name=name)
 
+
+# full network
 def network():
 
     # define the placeholder by using feed the data
@@ -140,6 +143,8 @@ def test():
 
             graph = tf.get_default_graph()
 
+            for op in tf.all_variables():
+                print(op.name, op)
 
             # one operation possibly have many outputs, so you need specify the which output, such as "name:0"
             x = graph.get_tensor_by_name("input_placeholder/x:0")
@@ -153,8 +158,6 @@ def test():
 
             acc = sess.run(accuracy, feed_dict=feed_dict)
             print("test accuracy {acc:.4f}".format(acc=acc))
-    else:
-        return
 
 def save_pb_file():
 
@@ -173,7 +176,7 @@ def save_pb_file():
     else:
         return False
 
-def main():
+def main(_):
     if FLAGS.is_train:
         train()
     elif FLAGS.is_test:
@@ -191,6 +194,6 @@ def main():
 
 if __name__ == '__main__':
     try:
-        main()
+        tf.app.run()
     except (ValueError, IndexError) as ve:
         print(ve)

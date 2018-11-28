@@ -1,7 +1,7 @@
 .idea
 __pycache__
 datasets_test/cifar/__pycache__
-datasets_test/cifar/cifar10_data
+datasets_test/cifar/cifar10_data/*
 datasets_test/cifar/cifar10_data/cifar-10-batches-bin
 datasets_test/cifar/model
 datasets_test/mnist/MNIST_data
@@ -11,3 +11,6 @@ lstm/model
 siamease_network/mnist/MNIST_data
 siamease_network/mnist/logs
 tensorboard_test/temp
+load_model_2pb/models
+load_model_2pb/output_model
+load_model_2pb/pb_model
